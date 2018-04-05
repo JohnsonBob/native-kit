@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AMap-IOS-Kit
 //
-//  Created by 张腾 on 2018/4/5.
+//  Created by kain on 2018/4/5.
 //  Copyright © 2018年 kain. All rights reserved.
 //
 
@@ -40,7 +40,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 
