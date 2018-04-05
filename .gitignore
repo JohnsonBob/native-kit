@@ -1,2 +1,6 @@
 
 .DS_Store
+
+AMap-IOS-Kit/\.idea/
+
+AMap-IOS-Kit/Podfile\.lock

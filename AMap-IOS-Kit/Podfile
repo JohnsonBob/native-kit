@@ -1,0 +1,6 @@
+platform :ios, '10.0'
+target 'AMap-IOS-Kit' do
+  pod 'AMap3DMap'
+  pod 'AMapSearch'
+  pod 'AMapLocation'
+end
