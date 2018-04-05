@@ -7,27 +7,23 @@
 //
 
 import UIKit
+import RxSwift
 
 class ViewController: UIViewController, MAMapViewDelegate {
     private var amap: MAMapView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setAMapService()
+        setAMap()
     }
 
-    private func setAMapService() {
-        var dict: NSDictionary?
-        if let path = Bundle.main.path(forResource: "Config", ofType: "plist") {
-            dict = NSDictionary(contentsOfFile: path)
-        }
-        if let config = dict {
-            AMapServices.shared().apiKey = config["AMapServices"] as? String
-            AMapServices.shared().enableHTTPS = true
-        }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     private func setAMap() {
+        AMapServices.shared().apiKey = Bundle.main.infoDictionary!["AMapServices"] as! String
+        AMapServices.shared().enableHTTPS = true
         amap = MAMapView(frame: view.bounds)
         amap!.delegate = self
         view.addSubview(amap!)
