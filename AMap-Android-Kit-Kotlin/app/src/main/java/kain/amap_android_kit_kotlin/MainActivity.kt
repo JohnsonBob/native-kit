@@ -6,32 +6,35 @@ import android.os.PersistableBundle
 import com.amap.api.maps.MapView
 
 class MainActivity : AppCompatActivity() {
-    private var amap: MapView? = null
+    private var amapView: MapView? = null
+    private var amapOptions: AMapOptions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        amap = findViewById(R.id.map) as MapView
-        amap?.onCreate(savedInstanceState)
+        amapView = findViewById(R.id.map) as MapView
+        amapView?.onCreate(savedInstanceState)
+        amapOptions = AMapOptions(amapView?.map!!)
+        amapOptions?.showPositionDot()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        amap?.onDestroy()
+        amapView?.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-        amap?.onResume()
+        amapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        amap?.onPause()
+        amapView?.onPause()
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
-        amap?.onSaveInstanceState(outState)
+        amapView?.onSaveInstanceState(outState)
     }
 }
