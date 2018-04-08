@@ -34,10 +34,17 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f63db4b54016690c1419172a20199d95">
-            //开发者申请的key
-        </meta-data>
+            //开发者申请的key</meta-data>
 
-        <activity android:name=".ViewMapActivity"></activity>
+        <activity android:name=".BaseMapActivity" />
+        <activity
+            android:name=".ShowMyLocationActivity"
+            android:label="@string/title_activity_show_my_location"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChangeLayerActivity"
+            android:label="@string/title_activity_change_layer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
