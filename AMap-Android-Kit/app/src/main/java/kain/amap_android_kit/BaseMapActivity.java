@@ -3,11 +3,13 @@ package kain.amap_android_kit;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
-public class ViewMapActivity extends AppCompatActivity {
+public class BaseMapActivity extends AppCompatActivity {
 
     MapView mMapView = null;
+    AMap  aMap = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,7 +17,11 @@ public class ViewMapActivity extends AppCompatActivity {
         //获取地图控件引用
         mMapView = (MapView) findViewById(R.id.map);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
-        mMapView.onCreate(savedInstanceState);
+        mMapView.onCreate(savedInstanceState); // 此方法须覆写，虚拟机需要在很多情况下保存地图绘制的当前状态。
+        //初始化地图控制器对象
+        if (aMap == null) {
+            aMap = mMapView.getMap();
+        }
     }
     @Override
     protected void onDestroy() {
