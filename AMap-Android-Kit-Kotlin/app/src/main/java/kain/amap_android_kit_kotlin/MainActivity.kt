@@ -3,39 +3,38 @@ package kain.amap_android_kit_kotlin
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.util.Log
 import com.amap.api.maps.MapView
 
 class MainActivity : AppCompatActivity() {
-    private var amapView: MapView? = null
-    private var amapOptions: MyOptions? = null
+    private var mapView: MapView? = null
+    private var mapOptions: MapOptions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        amapView = findViewById(R.id.map) as MapView
-        amapView?.onCreate(savedInstanceState)
-        amapOptions = MyOptions(amapView?.map!!)
-        amapOptions?.showPositionDot()
+        mapView = findViewById(R.id.map) as MapView
+        mapView?.onCreate(savedInstanceState)
+        mapOptions = MapOptions(mapView?.map!!)
+        mapOptions?.showPositionDot()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        amapView?.onDestroy()
+        mapView?.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-        amapView?.onResume()
+        mapView?.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        amapView?.onPause()
+        mapView?.onPause()
     }
 
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
-        amapView?.onSaveInstanceState(outState)
+        mapView?.onSaveInstanceState(outState)
     }
 }
