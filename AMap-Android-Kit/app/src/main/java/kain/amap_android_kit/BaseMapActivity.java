@@ -22,7 +22,7 @@ public class BaseMapActivity extends AppCompatActivity {
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
-        aMap.setMapLanguage("en");
+        //aMap.setMapLanguage("en");
     }
     @Override
     protected void onDestroy() {
