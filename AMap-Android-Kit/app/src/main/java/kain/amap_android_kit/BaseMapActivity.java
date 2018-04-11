@@ -22,7 +22,10 @@ public class BaseMapActivity extends AppCompatActivity {
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
+        //设置地图底层为英语
         //aMap.setMapLanguage("en");
+
+        //设置
     }
     @Override
     protected void onDestroy() {
