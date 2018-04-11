@@ -8,15 +8,15 @@ import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.UiSettings
 import com.amap.api.maps.model.MyLocationStyle
 
-class MyOptions(amap: AMap) {
-    private var amap: AMap? = null
+class MapOptions(map: AMap) {
+    private var map: AMap? = null
     private var locationStyle: MyLocationStyle? = null
     private var uiSet: UiSettings? = null
 
     init {
-        this.amap = amap
-        this.uiSet = this.amap?.getUiSettings()
-        amap.setOnMyLocationChangeListener {
+        this.map = map
+        this.uiSet = this.map?.getUiSettings()
+        map.setOnMyLocationChangeListener {
             this.onMyLocationChange(it)
         }
     }
@@ -38,24 +38,24 @@ class MyOptions(amap: AMap) {
         locationStyle?.radiusFillColor(Color.BLACK)
         // 精度圈边框宽度自定义
         locationStyle?.strokeWidth((2).toFloat())
-        amap?.setMyLocationStyle(locationStyle!!)
+        map?.setMyLocationStyle(locationStyle!!)
         // 设置默认定位按钮是否显示
-        amap?.getUiSettings()?.setMyLocationButtonEnabled(true)
-        amap?.setMyLocationEnabled(true)
+        map?.getUiSettings()?.setMyLocationButtonEnabled(true)
+        map?.setMyLocationEnabled(true)
     }
 
     /**
      * TODO:开启室内地图
      */
     fun showsIndoorMap() {
-        amap?.showIndoorMap(true)
+        map?.showIndoorMap(true)
     }
 
     /**
      * TODO:显示交通状态
      */
     fun showTraffic() {
-        amap?.setTrafficEnabled(false)
+        map?.setTrafficEnabled(false)
     }
 
     /**
@@ -65,7 +65,7 @@ class MyOptions(amap: AMap) {
      * MAP_TYPE_SATELLITE 卫星图
      */
     fun setMapType() {
-        amap?.setMapType(AMap.MAP_TYPE_NORMAL)
+        map?.setMapType(AMap.MAP_TYPE_NORMAL)
     }
 
     /**
