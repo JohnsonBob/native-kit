@@ -37,14 +37,10 @@
             //开发者申请的key</meta-data>
 
         <activity android:name=".BaseMapActivity" />
-        <activity
-            android:name=".ShowMyLocationActivity"
-            android:label="@string/title_activity_show_my_location"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ChangeLayerActivity"
-            android:label="@string/title_activity_change_layer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ShowMyLocationActivity" />
+        <activity android:name=".ChangeLayerActivity" />
+        <activity android:name="com.amap.api.maps.offlinemap.OfflineMapActivity"
+            android:screenOrientation="portrait"  />
     </application>
 
 </manifest>

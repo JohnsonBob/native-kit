@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         //bt_changeLayer 切换地图图层
         Button btChangeLayer = (Button)findViewById(R.id.bt_changeLayer);
         btChangeLayer.setOnClickListener(new ButtonOnClickListener());
+        //离线地图按钮
+        Button btOfflineMap = (Button)findViewById(R.id.bt_offlineMap);
+        btOfflineMap.setOnClickListener(new ButtonOnClickListener());
     }
 
     /**
@@ -44,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.bt_changeLayer:
                     intent = new Intent(MainActivity.this, ChangeLayerActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.bt_offlineMap:
+                    //在Activity页面调用startActvity启动离线地图组件
+                    intent = new Intent(MainActivity.this, com.amap.api.maps.offlinemap.OfflineMapActivity.class);
                     startActivity(intent);
                     break;
 
