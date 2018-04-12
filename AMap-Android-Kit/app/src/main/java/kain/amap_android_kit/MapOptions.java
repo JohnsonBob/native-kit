@@ -9,25 +9,39 @@ import com.amap.api.maps.AMapOptions;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
 
-public class MapOptions {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
+public class MapOptions implements AMap.OnMyLocationChangeListener {
     //volatile, 声明变量值的一致性；static,声明变量的唯一性。 volatile同步机制:内存同步
     private static volatile MapOptions instance = null;
     private AMap aMap = null;
     private MyLocationStyle myLocationStyle = null;
     private UiSettings uiSet = null;
     private Location myLocation = null;
+    protected List<OnMapOptionsLocationChangeListener> OptionsLocationChangeListeners = null;
 
     private MapOptions(AMap aMap){
+        OptionsLocationChangeListeners  = new ArrayList<OnMapOptionsLocationChangeListener>();
         this.aMap = aMap;
         this.uiSet = aMap.getUiSettings();
-        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
+        /*aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 myLocation = location;
                 Log.wtf("Msg:",myLocation.getLatitude() + " " + myLocation.getLongitude());
             }
-        });
+        });*/
+        aMap.setOnMyLocationChangeListener(this);
+//        Observable
         this.showPositionDot();
+    }
+
+
+    public void setMyLocation(Location myLocation) {
+        this.myLocation = myLocation;
+        this.notifyObservers(this.myLocation);
     }
 
     /**
@@ -194,5 +208,36 @@ public class MapOptions {
      */
     public void setScale(String languge) {
         aMap.setMapLanguage(languge);
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+        this.setMyLocation(location);
+
+    }
+
+    /**
+     * 设置监听MapOptionsLocation变化时 回调(注册监听者)
+     * @param var1 观察者
+     */
+    public void setOnMapOptionsLocationChangeListener(MapOptions.OnMapOptionsLocationChangeListener var1){
+        OptionsLocationChangeListeners.add(var1);
+    }
+
+    /**
+     * 定义监听接口
+     */
+    public interface OnMapOptionsLocationChangeListener {
+        void onMapOptionsLocationChange(Location location);
+    }
+
+    /**
+     * 主题内容发生改变时，会即时通知观察者做出反应
+     * @param location
+     */
+    public void notifyObservers(Location location) {
+        for (OnMapOptionsLocationChangeListener OptionsLocationChangeListener : OptionsLocationChangeListeners) {
+            OptionsLocationChangeListener.onMapOptionsLocationChange(location);
+        }
     }
 }

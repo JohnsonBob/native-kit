@@ -1,7 +1,9 @@
 package kain.amap_android_kit;
 
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -23,6 +25,12 @@ public class BaseMapActivity extends AppCompatActivity {
             aMap = mMapView.getMap();
         }
         MapOptions mapOptions = MapOptions.getInstance(aMap);
+        mapOptions.setOnMapOptionsLocationChangeListener(new MapOptions.OnMapOptionsLocationChangeListener() {
+            @Override
+            public void onMapOptionsLocationChange(Location location) {
+                Log.wtf("Msg:",location.getLatitude() + " " + location.getLongitude());
+            }
+        });
         //设置地图底层为英语
         //aMap.setMapLanguage("en");
 
