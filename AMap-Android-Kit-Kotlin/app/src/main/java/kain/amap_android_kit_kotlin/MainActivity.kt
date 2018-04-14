@@ -3,6 +3,7 @@ package kain.amap_android_kit_kotlin
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import com.amap.api.maps.MapView
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
         mapView?.onCreate(savedInstanceState)
         mapOptions = MapOptions(mapView?.map!!)
         mapOptions?.showPositionDot()
+        mapOptions?.asyncMapLocation?.subscribe {
+            Log.wtf("Main Msg", it.latitude.toString() + ":" + it.longitude.toString())
+        }
     }
 
     override fun onDestroy() {

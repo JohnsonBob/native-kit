@@ -7,18 +7,29 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.UiSettings
 import com.amap.api.maps.model.MyLocationStyle
+import io.reactivex.subjects.AsyncSubject
 
 class MapOptions(map: AMap) {
     private var map: AMap? = null
     private var locationStyle: MyLocationStyle? = null
     private var uiSet: UiSettings? = null
+    var asyncMapLocation: AsyncSubject<Location> = AsyncSubject.create()
+
 
     init {
         this.map = map
         this.uiSet = this.map?.getUiSettings()
-        map.setOnMyLocationChangeListener {
-            this.onMyLocationChange(it)
+        this.map?.setOnMyLocationChangeListener {
+            if (it != null) {
+                asyncMapLocation.onNext(it)
+                asyncMapLocation.onComplete()
+            } else {
+                Log.e("AmapError", "location Error");
+            }
         }
+        this.asyncMapLocation.subscribe({
+            Log.wtf("Msg", it.latitude.toString() + ":" + it.longitude.toString())
+        })
     }
 
     /**
@@ -95,14 +106,6 @@ class MapOptions(map: AMap) {
      */
     fun setScale() {
         uiSet?.setScaleControlsEnabled(false)
-    }
-
-
-    /**
-     * TODO:定位坐标监听
-     */
-    fun onMyLocationChange(location: Location?) {
-        Log.wtf("Msg:", location?.latitude.toString() + " " + location?.longitude.toString())
     }
 }
 
