@@ -34,7 +34,15 @@ public class BaseMapActivity extends AppCompatActivity {
         //设置地图底层为英语
         //aMap.setMapLanguage("en");
 
-
+        //调用sdk功能测试
+        //设置缩放按钮
+        mapOptions.setZoomControls(true);
+        //显示指南针
+        mapOptions.setCompass(true);
+        //设置是否显示比例尺
+        mapOptions.setScale(true);
+        //指定屏幕中心点的手势操作
+        //mapOptions.setGestureScaleByMapCenter(500,500,true);
     }
     @Override
     protected void onDestroy() {

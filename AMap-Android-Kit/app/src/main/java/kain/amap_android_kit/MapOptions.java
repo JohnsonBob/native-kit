@@ -206,14 +206,101 @@ public class MapOptions implements AMap.OnMyLocationChangeListener {
      * 设置地图显示语言
      * 即"zh_cn", AMap.ENGLISH 表示英文，即"en"
      */
-    public void setScale(String languge) {
+    public void setMapLanguage(String languge) {
         aMap.setMapLanguage(languge);
+    }
+
+
+
+    /**
+     * @param stuas 开|关
+     * 设置缩放手势
+     */
+    public void setZoomGestures(Boolean stuas){
+        uiSet.setZoomGesturesEnabled(stuas);
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置滑动手势
+     */
+    public void setScrollGestures(Boolean stuas){
+        uiSet.setScrollGesturesEnabled(stuas);
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置旋转手势
+     */
+    public void setRotateGestures(Boolean stuas){
+        uiSet.setRotateGesturesEnabled(stuas);
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置倾斜手势
+     */
+    public void setTiltGestures(Boolean stuas){
+        uiSet.setTiltGesturesEnabled(stuas);
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置所有手势
+     */
+    public void setAllGestures(Boolean stuas){
+        uiSet.setAllGesturesEnabled(stuas);
+    }
+
+    /**
+     * 缩放手势是否开启
+     */
+    public Boolean isZoomGesturesEnabled(){
+        return uiSet.isZoomGesturesEnabled();
+    }
+
+    /**
+     * 滑动手势是否开启
+     */
+    public Boolean isScrollGesturesEnabled(){
+        return uiSet.isScrollGesturesEnabled();
+    }
+
+    /**
+     * 旋转手势是否开启
+     */
+    public Boolean isRotateGesturesEnabled(){
+        return uiSet.isRotateGesturesEnabled();
+    }
+
+    /**
+     * 倾斜手势是否开启
+     */
+    public Boolean isTiltGesturesEnabled(){
+        return uiSet.isTiltGesturesEnabled();
+    }
+
+
+    /**
+     * 指定屏幕中心点的手势操作 在对地图进行手势操作时（滑动手势除外），可以指定屏幕中心点后执行相应手势。
+     * //x、y均为屏幕坐标，屏幕左上角为坐标原点，即(0,0)点。
+     * 当x和y同时为-1时 设置坐标不生效
+     * @param x
+     * @param y
+     * @param stuas 是否启用
+     */
+    public void setGestureScaleByMapCenter(int x, int y, Boolean stuas){
+        if(x==y && x != -1){
+            aMap.setPointToCenter(x, y);
+        }
+        uiSet.setGestureScaleByMapCenter(stuas);
     }
 
     @Override
     public void onMyLocationChange(Location location) {
-        this.setMyLocation(location);
-
+        if(location != null){
+            this.setMyLocation(location);
+        }
     }
 
     /**
