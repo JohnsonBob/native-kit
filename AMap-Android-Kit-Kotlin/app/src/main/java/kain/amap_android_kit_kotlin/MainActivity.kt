@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         mapOptions?.asyncMapLocation?.subscribe {
             Log.wtf("Main Msg", it.latitude.toString() + ":" + it.longitude.toString())
         }
+        //mapOptions?.setGestureScaleByMapCenter(100,100,true)
     }
 
     override fun onDestroy() {

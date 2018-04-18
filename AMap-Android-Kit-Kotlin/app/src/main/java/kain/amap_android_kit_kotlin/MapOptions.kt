@@ -24,7 +24,7 @@ class MapOptions(map: AMap) {
                 asyncMapLocation.onNext(it)
                 asyncMapLocation.onComplete()
             } else {
-                Log.e("AmapError", "location Error");
+                Log.e("AmapError", "location Error")
             }
         }
         this.asyncMapLocation.subscribe({
@@ -106,6 +106,100 @@ class MapOptions(map: AMap) {
      */
     fun setScale() {
         uiSet?.setScaleControlsEnabled(false)
+    }
+
+    /**
+     * 设置地图显示语言
+     * 即"zh_cn", AMap.ENGLISH 表示英文，即"en"
+     */
+    fun setMapLanguage(languge: String) {
+        map?.setMapLanguage(languge)
+    }
+
+
+
+    /**
+     * @param stuas 开|关
+     * 设置缩放手势
+     */
+    fun  setZoomGestures(stuas: Boolean){
+        uiSet?.setZoomGesturesEnabled(stuas)
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置滑动手势
+     */
+    fun setScrollGestures(stuas: Boolean){
+        uiSet?.setScrollGesturesEnabled(stuas)
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置旋转手势
+     */
+    fun setRotateGestures(stuas: Boolean){
+        uiSet?.setRotateGesturesEnabled(stuas)
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置倾斜手势
+     */
+    fun setTiltGestures(stuas: Boolean){
+        uiSet?.setTiltGesturesEnabled(stuas)
+    }
+
+    /**
+     * @param stuas 开|关
+     * 设置所有手势
+     */
+    fun setAllGestures(stuas: Boolean){
+        uiSet?.setAllGesturesEnabled(stuas)
+    }
+
+    /**
+     * 缩放手势是否开启
+     */
+    fun  isZoomGesturesEnabled(): Boolean?{
+        return uiSet?.isZoomGesturesEnabled()
+    }
+
+    /**
+     * 滑动手势是否开启
+     */
+    fun isScrollGesturesEnabled(): Boolean?{
+        return uiSet?.isScrollGesturesEnabled()
+    }
+
+    /**
+     * 旋转手势是否开启
+     */
+    fun  isRotateGesturesEnabled(): Boolean?{
+        return uiSet?.isRotateGesturesEnabled()
+    }
+
+    /**
+     * 倾斜手势是否开启
+     */
+    fun isTiltGesturesEnabled(): Boolean?{
+        return uiSet?.isTiltGesturesEnabled()
+    }
+
+
+    /**
+     * 指定屏幕中心点的手势操作 在对地图进行手势操作时（滑动手势除外），可以指定屏幕中心点后执行相应手势。
+     * //x、y均为屏幕坐标，屏幕左上角为坐标原点，即(0,0)点。
+     * 当x和y同时为-1时 设置坐标不生效
+     * @param x
+     * @param y
+     * @param stuas 是否启用
+     */
+    fun setGestureScaleByMapCenter(x: Int, y: Int, stuas: Boolean){
+        if(x==y && x != -1){
+            map?.setPointToCenter(x, y)
+        }
+        uiSet?.setGestureScaleByMapCenter(stuas)
     }
 }
 
