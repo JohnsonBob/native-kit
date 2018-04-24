@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMapOptions;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.MyLocationStyle;
 
@@ -35,7 +36,7 @@ public class MapOptions implements AMap.OnMyLocationChangeListener {
         });*/
         aMap.setOnMyLocationChangeListener(this);
 //        Observable
-        this.showPositionDot();
+        //this.showPositionDot();
     }
 
 
@@ -294,6 +295,7 @@ public class MapOptions implements AMap.OnMyLocationChangeListener {
             aMap.setPointToCenter(x, y);
         }
         uiSet.setGestureScaleByMapCenter(stuas);
+        CameraUpdateFactory.zoomTo(17);
     }
 
     @Override

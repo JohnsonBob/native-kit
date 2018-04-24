@@ -21,6 +21,15 @@ class MainActivity : AppCompatActivity() {
             Log.wtf("Main Msg", it.latitude.toString() + ":" + it.longitude.toString())
         }
         //mapOptions?.setGestureScaleByMapCenter(100,100,true)
+        //改变地图的缩放级别
+        //mapOptions?.mapZoomTo(17F)
+        //设置地图显示区域
+        //mapOptions?.setMapStatusLimits(33.789925, 104.838326,38.740688, 114.647472)
+        //设置默认显示地点
+        mapView = mapOptions?.setDefaultMap(this, 18.312963, 109.616185, 12f)
+        mapView?.onCreate(savedInstanceState)
+
+
     }
 
     override fun onDestroy() {

@@ -1,13 +1,20 @@
 package kain.amap_android_kit_kotlin
 
+import android.content.Context
 import android.graphics.Color
 import android.location.Location
+import android.os.Bundle
 import android.util.Log
-import com.amap.api.maps.AMap
-import com.amap.api.maps.AMapOptions
-import com.amap.api.maps.UiSettings
+import com.amap.api.maps.*
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.LatLngBounds
 import com.amap.api.maps.model.MyLocationStyle
 import io.reactivex.subjects.AsyncSubject
+import com.amap.api.maps.MapView
+import com.amap.api.maps.model.CameraPosition
+import com.amap.api.maps.AMapOptions
+
+
 
 class MapOptions(map: AMap) {
     private var map: AMap? = null
@@ -195,6 +202,53 @@ class MapOptions(map: AMap) {
      * @param y
      * @param stuas 是否启用
      */
+
+    /**
+     * 改变地图的缩放级别
+     * 地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细。
+     */
+    fun mapZoomTo(value: Float){
+        map?.animateCamera(CameraUpdateFactory.zoomTo(value))
+    }
+
+    /**
+     * 设置地图显示范围的方法，手机屏幕仅显示设定的地图范围
+     * 注意：如果限制了地图显示范围，地图旋转手势将会失效。
+     */
+    fun setMapStatusLimits(startPointLatitude: Double, startPointLongitude: Double, endPointLatitude: Double, endPointLongitude: Double){
+        var startPoint: LatLng?=  LatLng(startPointLatitude, startPointLongitude)
+        var endPoint: LatLng? = LatLng(endPointLatitude, endPointLongitude)
+        var latLngBounds: LatLngBounds? =  LatLngBounds(startPoint, endPoint);
+        map?.setMapStatusLimits(latLngBounds);
+    }
+
+    /**
+     * 改变地图默认显示区域
+     * @param Latitude 纬度 目标位置的屏幕中心点经纬度坐标纬度
+     * @param Longitude 经度 目标位置的屏幕中心点经纬度坐标经度
+     * @param zoomValue 地图缩放级别
+     */
+    fun setDefaultMap(paramContext: Context, Latitude: Double, Longitude: Double, zoomValue: Float): MapView {
+        // 定义北京市经纬度坐标（此处以北京坐标为例）
+        val centerBJPoint = LatLng(Latitude, Longitude)
+        // 定义了一个配置 AMap 对象的参数类
+        val mapOptions = AMapOptions()
+        // 设置了一个可视范围的初始化位置
+        // CameraPosition 第一个参数： 目标位置的屏幕中心点经纬度坐标。
+        // CameraPosition 第二个参数： 目标可视区域的缩放级别
+        // CameraPosition 第三个参数： 目标可视区域的倾斜度，以角度为单位。
+        // CameraPosition 第四个参数： 可视区域指向的方向，以角度为单位，从正北向顺时针方向计算，从0度到360度
+        mapOptions.camera(CameraPosition(centerBJPoint, zoomValue, 0f, 0f))
+        // 定义一个 MapView 对象，构造方法中传入 mapOptions 参数类
+         var mapView: MapView = MapView(paramContext, mapOptions)
+        this.map = mapView.map
+        this.uiSet = map?.uiSettings
+        return mapView
+
+    }
+
+
+
     fun setGestureScaleByMapCenter(x: Int, y: Int, stuas: Boolean){
         if(x==y && x != -1){
             map?.setPointToCenter(x, y)
