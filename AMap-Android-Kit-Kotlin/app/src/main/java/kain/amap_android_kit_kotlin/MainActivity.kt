@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         //设置地图显示区域
         //mapOptions?.setMapStatusLimits(33.789925, 104.838326,38.740688, 114.647472)
         //设置默认显示地点
-        mapView = mapOptions?.setDefaultMap(this, 18.312963, 109.616185, 12f)
-        mapView?.onCreate(savedInstanceState)
+       mapOptions?.setDefaultMap(18.312963, 109.616185, 12f)
+        //mapView?.onCreate(savedInstanceState)
 
 
     }
