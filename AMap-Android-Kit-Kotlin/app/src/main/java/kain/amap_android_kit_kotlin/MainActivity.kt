@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import com.amap.api.maps.MapView
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         mapView = findViewById(R.id.map) as MapView
         mapView?.onCreate(savedInstanceState)
         mapOptions = MapOptions(mapView?.map!!)
+        //设置定位蓝点
         mapOptions?.showPositionDot()
         mapOptions?.asyncMapLocation?.subscribe {
             Log.wtf("Main Msg", it.latitude.toString() + ":" + it.longitude.toString())
@@ -26,10 +28,17 @@ class MainActivity : AppCompatActivity() {
         //设置地图显示区域
         //mapOptions?.setMapStatusLimits(33.789925, 104.838326,38.740688, 114.647472)
         //设置默认显示地点
-       mapOptions?.setDefaultMap(18.312963, 109.616185, 12f)
-        //mapView?.onCreate(savedInstanceState)
+       //mapOptions?.setDefaultMap(18.312963, 109.616185, 12f)
+        mapOptions?.asyncScreenShot?.subscribe(){
+            Log.wtf("Msg", "地图截图位置为："+it)
+        }
 
-
+    }
+    /**
+     * 对地图进行截屏
+     */
+    fun getMapScreenShot(v: View) {
+        mapOptions?.getMapScreenShot()
     }
 
     override fun onDestroy() {

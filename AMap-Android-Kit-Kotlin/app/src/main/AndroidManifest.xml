@@ -18,7 +18,7 @@
         </activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="893376cff2f58e7e41399e23dc3edbe5" />
+            android:value="363e02f16d89f8dfe53b43e1b7a1f0bf" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

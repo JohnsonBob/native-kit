@@ -1,9 +1,11 @@
 package kain.amap_android_kit_kotlin
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import com.amap.api.maps.*
 import com.amap.api.maps.model.LatLng
@@ -15,9 +17,11 @@ import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CameraUpdate
-
-
-
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MapOptions(map: AMap) {
@@ -25,6 +29,7 @@ class MapOptions(map: AMap) {
     private var locationStyle: MyLocationStyle? = null
     private var uiSet: UiSettings? = null
     var asyncMapLocation: AsyncSubject<Location> = AsyncSubject.create()
+    var asyncScreenShot: AsyncSubject<String> = AsyncSubject.create()
 
 
     init {
@@ -38,9 +43,15 @@ class MapOptions(map: AMap) {
                 Log.e("AmapError", "location Error")
             }
         }
+
+
         this.asyncMapLocation.subscribe({
             Log.wtf("Msg", it.latitude.toString() + ":" + it.longitude.toString())
         })
+
+        /*this.asyncScreenShot.subscribe({
+            Log.wtf("Msg", "地图截图位置为："+it)
+        })*/
     }
 
     /**
@@ -248,6 +259,54 @@ class MapOptions(map: AMap) {
         return mapView*/
         map?.animateCamera(animateCamera)
 
+    }
+
+    /**
+     * 截图
+     */
+    fun getMapScreenShot(){
+        this.map?.getMapScreenShot(object :AMap.OnMapScreenShotListener{
+
+            override fun onMapScreenShot(bitmap: Bitmap?, arg1: Int) {
+
+                val sdf = SimpleDateFormat("yyyyMMddHHmmss")
+                if (null == bitmap) {
+                    return
+                }
+                try {
+                    val fileName = Environment.getExternalStorageDirectory().toString()+  "/mapScreenShot_" + sdf.format(Date()) + ".png"
+                    val fos = FileOutputStream(fileName)
+                    val b = bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+
+                    fos.flush()
+                    fos.close()
+
+
+                    val buffer = StringBuffer()
+                    if (b)
+                        buffer.append("截屏成功 ")
+                    else {
+                        buffer.append("截屏失败 ")
+                    }
+                    if (arg1 != 0)
+                        buffer.append("地图渲染完成，截屏无网格")
+                    else {
+                        buffer.append("地图未渲染完成，截屏有网格")
+                    }
+                    Log.wtf("Msg", buffer.toString())
+                    asyncScreenShot.onNext(fileName)
+                    asyncScreenShot.onComplete()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                   // asyncScreenShot.onError(e)
+                }
+            }
+
+            override fun onMapScreenShot(p0: Bitmap?) {
+
+            }
+        })
     }
 
 
