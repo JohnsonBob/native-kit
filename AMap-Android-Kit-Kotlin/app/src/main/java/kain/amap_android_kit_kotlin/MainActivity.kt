@@ -1,5 +1,6 @@
 package kain.amap_android_kit_kotlin
 
+import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -28,10 +29,16 @@ class MainActivity : AppCompatActivity() {
         //设置地图显示区域
         //mapOptions?.setMapStatusLimits(33.789925, 104.838326,38.740688, 114.647472)
         //设置默认显示地点
-       //mapOptions?.setDefaultMap(18.312963, 109.616185, 12f)
+        mapOptions?.setDefaultMap(18.312963, 109.616185, 12f)
         mapOptions?.asyncScreenShot?.subscribe(){
             Log.wtf("Msg", "地图截图位置为："+it)
         }
+        //添加默认标记
+        //mapOptions?.addMarker(18.312963, 109.616185,"三亚")
+        //mapOptions?.addMarker(18.312963, 109.616185,"三亚","三亚市吉阳区云港园区")
+        //mapOptions?.addMarker(18.312963, 109.616185,"三亚","三亚市吉阳区云港园区",BitmapFactory.decodeResource(getResources(),R.drawable.location_marker))
+        //mapOptions?.addMarker(18.312963, 109.616185,"三亚","三亚市吉阳区云港园区",BitmapFactory.decodeResource(getResources(),R.drawable.location_marker),true,true)
+
 
     }
     /**

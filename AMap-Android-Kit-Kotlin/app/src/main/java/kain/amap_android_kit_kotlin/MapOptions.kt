@@ -1,22 +1,21 @@
 package kain.amap_android_kit_kotlin
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
 import com.amap.api.maps.*
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.LatLngBounds
-import com.amap.api.maps.model.MyLocationStyle
 import io.reactivex.subjects.AsyncSubject
 import com.amap.api.maps.MapView
-import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CameraUpdate
+import com.amap.api.maps.model.*
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
@@ -316,6 +315,60 @@ class MapOptions(map: AMap) {
             map?.setPointToCenter(x, y)
         }
         uiSet?.setGestureScaleByMapCenter(stuas)
+    }
+
+
+    /**
+     * 添加默认标记
+     * 标题
+     */
+    fun addMarker(latitude: Double, longitude: Double,title: String){
+        var latLng = LatLng(latitude,longitude)
+        var markerOption = MarkerOptions()
+        markerOption.position(latLng)
+        markerOption.title(title)
+        map?.addMarker(markerOption)
+    }
+
+    /**
+     * 添加默认标记
+     * 标题和内容
+     */
+    fun addMarker(latitude: Double, longitude: Double,title: String,des: String){
+        var latLng = LatLng(latitude,longitude)
+        var markerOption = MarkerOptions()
+        markerOption.position(latLng)
+        markerOption.title(title)
+        markerOption.snippet(des)
+        map?.addMarker(markerOption)
+    }
+
+    /**
+     * 添加标记 标题+内容+自定义图标
+     */
+    fun addMarker(latitude: Double, longitude: Double,title: String,des: String,icon:Bitmap){
+        var latLng = LatLng(latitude,longitude)
+        var markerOption = MarkerOptions()
+        markerOption.position(latLng)
+        markerOption.title(title)
+        markerOption.snippet(des)
+        markerOption.icon(BitmapDescriptorFactory.fromBitmap(icon))
+        map?.addMarker(markerOption)
+    }
+
+    /**
+     * 添加标记 标题+内容+自定义图标+是否可拖动+是否设置平贴效果
+     */
+    fun addMarker(latitude: Double, longitude: Double,title: String,des: String,icon:Bitmap, draggable: Boolean, isFlat: Boolean){
+        var latLng = LatLng(latitude,longitude)
+        var markerOption = MarkerOptions()
+        markerOption.position(latLng)
+        markerOption.title(title)
+        markerOption.snippet(des)
+        markerOption.icon(BitmapDescriptorFactory.fromBitmap(icon))
+        markerOption.draggable(draggable)
+        markerOption.setFlat(isFlat)
+        map?.addMarker(markerOption)
     }
 }
 
